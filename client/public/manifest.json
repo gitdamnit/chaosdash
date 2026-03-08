@@ -1,0 +1,41 @@
+{
+  "name": "ChaosDash - ADHD Navigator",
+  "short_name": "ChaosDash",
+  "description": "Your ADHD command center. Tasks, focus, routines, and tools built for how your brain works.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "health", "lifestyle"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Capture",
+      "short_name": "Capture",
+      "description": "Capture a new task or thought",
+      "url": "/?capture=true",
+      "icons": [{ "src": "/favicon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Focus Mode",
+      "short_name": "Focus",
+      "description": "Start a focus session",
+      "url": "/?focus=true",
+      "icons": [{ "src": "/favicon.png", "sizes": "192x192" }]
+    }
+  ]
+}
