@@ -1,5 +1,8 @@
 # Chaos Dashboard (ADHD Navigator)
 
+<img width="411" height="120" alt="image" src="https://github.com/user-attachments/assets/1ec139a9-42f3-4837-8d6c-0f6c9b6c733e" />
+
+
 ## Overview
 
 ChaosDash is a distraction-free productivity and wellness app designed specifically for adults with ADHD. It helps users manage tasks, routines, projects, and daily planning with minimal friction. The app includes AI-powered "Fun Tools" to break tasks into micro-steps, estimate time, and provide ADHD-friendly support.
@@ -127,3 +130,33 @@ Preferred communication style: Simple, everyday language.
 | `lucide-react` | Icons |
 | `embla-carousel-react` | Carousel components |
 | Radix UI (full suite) | Accessible headless UI primitives |
+
+# Yay pictures! 
+
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/84be8be5-1e74-4869-85e7-77bf54e6e06c" />
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/e1353550-ab40-43a6-b03f-079378d7439a" />
+
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/ec2eca15-a0c6-4758-93de-7c8547939ea7" />
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/097310fd-072e-468e-89a6-6750d385635e" />
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/b31dcc29-744c-4554-ac8e-6f3a13dc9fae" />
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/41d0d5f4-7b4d-48d2-a9ee-119e2dea83c4" />
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/3ea267ec-59c0-4e6e-bfab-7ab386589eda" />
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/3f777026-457e-4608-bae3-e922876f48c0" />
+
+
+<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/67da2474-9cd9-4f95-b49a-f26296012930" />
+
+
+
+
+
+
+
