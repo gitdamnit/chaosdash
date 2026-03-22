@@ -1,162 +1,127 @@
-# Chaos Dashboard (ADHD Navigator)
-
-<img width="411" height="120" alt="image" src="https://github.com/user-attachments/assets/1ec139a9-42f3-4837-8d6c-0f6c9b6c733e" />
-
+# ADHDPenguin
+<img width="240" height="240" alt="adhdpenguin-logo" src="https://github.com/user-attachments/assets/db9006b5-61f1-4351-b728-9e9e29113e13" />
 
 ## Overview
 
-ChaosDash is a distraction-free productivity and wellness app designed specifically for adults with ADHD. It helps users manage tasks, routines, projects, and daily planning with minimal friction. The app includes AI-powered "Fun Tools" to break tasks into micro-steps, estimate time, and provide ADHD-friendly support.
+ADHDPenguin is a distraction-free productivity and wellness app designed specifically for adults with ADHD. It helps users manage tasks, routines, projects, and daily planning with minimal friction. The app includes AI-powered "Fun Tools" to break tasks into micro-steps, estimate time, and provide ADHD-friendly support.
 
-Key features:
-- **Quick Capture FAB** — floating + button; `Ctrl+Shift+K` keyboard shortcut from anywhere; text + voice capture (Web Speech API + Whisper endpoint)
-- **Focus Mode** — fullscreen dark overlay with visual ring timer (15/25/45/60m presets); timer state persists in Layout so it runs in the background when overlay is closed; mini timer bar shows at screen bottom when session active but overlay closed; Forest tree gamification (🌱🌿🌳🌲 earned per session)
-- **Do Now & Inbox** — quick task capture, prioritize up to 3 items at a time; expandable subtasks
-- **Projects** — Kanban board (backlog / doing / done) with hashtag tagging
-- **Day Planner** — visual time-blocking with Day/Month calendar toggle and ICS export
-- **Fun Tools** — AI task breakdown, time estimation, tone fixer, kindness judge via OpenAI (route: /goblin)
-- **Calm Corner** — guided breathing and 5-4-3-2-1 grounding (route: /mindfulness)
-- **Routines** — daily/weekly/monthly routines with step timers, streak tracking, 7-day habit grid, Weekly Reset 5-step guided modal
-- **Goals & Timeline** — SMART Goal wizard (5-step guided creator with AI help per step, saves SmartGoalData), quick-add goals, timeline/list view, progress tracking by category; AI via `/api/goals/smart-help`
-- **Research & News** — tabbed page: "Research Papers" (EuropePMC open-access search) + "News & Community" (Reddit r/ADHD, ADDitude Magazine RSS, CHADD RSS via backend proxy `/api/news`)
-- **Mood Tracker** — emoji-scale 1-5 logging with 30-day chart
-- **Settings** — visual dark/light toggle cards, PWA install instructions, JSON export/import (file upload), keyboard shortcuts reference, Ctrl+Shift+K hotkey
-- **Reminders** — browser notification opt-in with routine reminder time and overdue task nudges (Settings)
-- **Panic Mode** — emergency focus mode toggled from the sidebar
+<img width="475" height="139" alt="image" src="https://github.com/user-attachments/assets/d10214c6-0701-4f15-8d35-991c9ce2d8fd" />
 
-All user data (tasks, routines, plants, time blocks) is stored in the browser via `localStorage` through a React context (`useAppState`). There is no user authentication in the frontend; the backend schema has a `users` table but it is not wired to the frontend.
+# ADHD Penguin
 
----
+A productivity and wellness toolkit built specifically for adults with ADHD. ADHD Penguin brings together task management, AI-powered tools, emotional regulation exercises, and research resources into one calm, focused space — designed around how ADHD brains actually work.
 
-## User Preferences
+## Who It's For
 
-Preferred communication style: Simple, everyday language.
+Adults with ADHD (or anyone who struggles with executive function) who want a single app that understands the real challenges: task paralysis, time blindness, emotional dysregulation, and the constant mental juggle.
 
----
+## Features
 
-## System Architecture
+### Task Management
+- **Home Dashboard** — A daily command center with an inbox/do-now/done task board, pinned sticky notes, a brain dump area for unfiltered thoughts, and a quick-glance view of today's mood and routine streaks.
+- **Projects** — A Kanban-style board (Backlog → Doing → Done) for bigger, multi-step projects with tagging support.
+- **Planner** — A visual daily time-blocking calendar where you drag and drop color-coded blocks to plan your day.
 
-### Frontend
+### AI-Powered Tools
+- **Magic ToDo** — Paste any overwhelming task and AI breaks it into tiny, concrete micro-steps you can actually start. Adjustable difficulty level.
+- **Time Estimator** — Get brutally honest time estimates that account for the "ADHD tax" (task initiation delays, context-switching, rabbit holes). Includes per-step breakdowns.
+- **Tone Fixer** — Rewrite any message in a different tone (formal, casual, soft, direct, assertive, or plain language). Great for emails you've been avoiding.
+- **Kindness Judge** — Paste a message and get a 1–10 kindness score with an explanation of how it lands, plus a gentler rewrite if needed.
+- **Voice Input** — All AI tools support speech-to-text so you can talk instead of type.
 
-- **Framework:** React 18 with TypeScript, bootstrapped via Vite
-- **Routing:** `wouter` (lightweight client-side router)
-- **State management:** React Context (`AppProvider` in `client/src/lib/useAppState.tsx`) backed by `localStorage` for persistence. All core app data (tasks, routines, plants, time blocks) lives here — no server round-trips needed for CRUD.
-- **Server communication:** TanStack React Query + a custom `apiRequest` helper (`client/src/lib/queryClient.ts`). Used for AI API calls to the backend.
-- **UI components:** shadcn/ui (New York style) built on Radix UI primitives + Tailwind CSS v4
-- **Styling:** Tailwind CSS with CSS custom properties for theming; dark mode default via `next-themes`; Geist (sans) and JetBrains Mono fonts
-- **Animations:** `framer-motion` for page transitions, breathing exercises, and plant cards
-- **Voice input:** Web Speech API via `useSpeechToText` hook; voice streaming playback via AudioWorklet (`client/integrations/audio/`)
-- **Pages:**
-  - `/` — Home (Do Now, Inbox, Focus Timer)
-  - `/projects` — Kanban board
-  - `/planner` — Day Planner
-  - `/goblin` — Goblin Tools (AI features)
-  - `/mindfulness` — Calm Corner
-  - `/research` — Research (OpenAlex)
-  - `/routines` — Routines
-  - `/plants` — Plant tracker
-  - `/settings` — Settings & Data
+### Regulation & Wellness
+- **Mindfulness** — Guided breathing exercises (Box Breathing, 4-7-8, Energizing Breath, and more) with animated visuals and timed phases.
+- **Mood Tracker** — Log your mood daily with emoji and notes, then view trends over time.
+- **Goals** — Set goals using an AI-assisted SMART framework that walks you through each step (Specific, Measurable, Achievable, Relevant, Time-bound) with ADHD-aware coaching.
+- **Routines** — Track daily, weekly, or monthly habits with streak counts and step-by-step breakdowns for each routine.
 
-### Backend
+### Research & Learning
+- **Research Hub** — Search open-access academic papers about ADHD from four databases: EuropePMC, OpenAlex, Semantic Scholar, and PubMed.
+- **Book Finder** — Search free and borrowable books from Open Library, Project Gutenberg, Google Books, Standard Ebooks, and dBooks.
+- **News Feed** — Live ADHD news and community posts pulled from r/ADHD, ADDitude Magazine, and CHADD.
 
-- **Runtime:** Node.js with Express 5 (`server/index.ts`)
-- **Language:** TypeScript, run via `tsx` in development; bundled via esbuild for production
-- **API routes** (`server/routes.ts`):
-  - `POST /api/goblin/breakdown` — AI task breakdown into micro-steps
-  - `POST /api/goblin/estimate` — AI time estimation (ADHD-aware)
-  - `POST /api/goblin/tone` — Tone fixer / text rewriter
-  - `POST /api/goblin/judge` — Kindness/bluntness scorer
-  - `GET /api/research` — Proxy to Europe PMC open-access ADHD papers
-  - Additional routes for chat/audio/image from ntegration modules
-- **Integrations** (`server/integrations/`):
-  - `chat/` — conversation + message storage via Postgres (Drizzle ORM)
-  - `audio/` — voice chat using OpenAI Whisper + TTS, PCM16 streaming
-  - `image/` — image generation via `gpt-image-1`
-  - `batch/` — rate-limited batch processing utility with `p-limit` and `p-retry`
-- **Static serving:** In production, Express serves the Vite build from `dist/public`. In development, Vite middleware is used (`server/vite.ts`).
-- **Storage:** `server/storage.ts` exports a `MemStorage` class (in-memory user store). This is not actively used by the frontend but provides a scaffold for future auth.
+### Community
+- **Body Doubling** — Start a timed work session and see who else is working alongside you in real time. Choose from 25, 45, 60, or 90-minute sessions. Powered by WebSockets for live updates.
 
-### Database
+### Other
+- **Settings** — Customize your display name, manage your account, and configure preferences.
+- **Admin Panel** — User management for app administrators.
+- **Authentication** — Sign in with your Replit account. All data is private and tied to your login.
 
-- **ORM:** Drizzle ORM with PostgreSQL dialect
-- **Schema** (`shared/schema.ts`):
-  - `users` table: `id` (UUID), `username`, `password`
-- **Chat schema** (`shared/models/chat.ts`):
-  - `conversations`: `id`, `title`, `createdAt`
-  - `messages`: `id`, `conversationId` (FK → conversations), `role`, `content`, `createdAt`
-- **Migrations:** `drizzle-kit` (`db:push` script), output to `./migrations`
-- **Connection:** Requires `DATABASE_URL` environment variable
+## Tech Stack
 
-> Note: The primary user-facing data (tasks, routines, plants, time blocks) does NOT use the database — it uses `localStorage` only. The database is used exclusively for the AI chat conversation history feature.
+| Layer       | Technology                                              |
+|-------------|---------------------------------------------------------|
+| Frontend    | React 19, Vite, Tailwind CSS, shadcn/ui, Framer Motion |
+| Backend     | Express 5, Node.js, TypeScript                         |
+| Database    | PostgreSQL with Drizzle ORM                             |
+| AI          | OpenAI API (GPT) for task breakdown, time estimates, tone analysis, SMART goal coaching |
+| Auth        | Replit OpenID Connect                                   |
+| Real-time   | WebSockets (ws) for body doubling sessions              |
+| Data Sources| EuropePMC, OpenAlex, Semantic Scholar, PubMed, Reddit, ADDitude, CHADD, Open Library, Project Gutenberg, Google Books |
 
-### Build
+## Pages
 
-- **Client:** Vite builds to `dist/public`
-- **Server:** esbuild bundles `server/index.ts` to `dist/index.cjs`; key server deps are bundled (openai, drizzle-orm, express, pg, etc.) to reduce cold-start syscalls
-- **Custom Vite plugin:** `vite-plugin-meta-images.ts` dynamically injects correct domain into `og:image` and `twitter:image` meta tags at build time
+| Route          | Page           | Description                                    |
+|----------------|----------------|------------------------------------------------|
+| `/`            | Home           | Dashboard with tasks, notes, brain dump, mood  |
+| `/projects`    | Projects       | Kanban project board                           |
+| `/planner`     | Planner        | Visual daily time-block calendar               |
+| `/fun-tools`   | Fun Tools      | AI tools (Magic ToDo, Time Estimator, Tone Fixer, Kindness Judge) |
+| `/mindfulness` | Mindfulness    | Guided breathing exercises                     |
+| `/research`    | Research       | Academic paper and book search, news feed      |
+| `/routines`    | Routines       | Habit and routine tracker with streaks         |
+| `/goals`       | Goals          | SMART goal setting with AI assistance          |
+| `/mood`        | Mood Tracker   | Daily mood logging and trends                  |
+| `/body-double` | Body Doubling  | Timed co-working sessions with live presence   |
+| `/settings`    | Settings       | Account and display preferences                |
+| `/admin`       | Admin          | User management (admin only)                   |
 
----
+## Running Locally
 
-## External Dependencies
+1. **Install dependencies**
+   ```
+   npm install
+   ```
 
-### AI / OpenAI
-- **OpenAI SDK** (`openai` npm package) — used for:
-  - Chat completions (Goblin Tools task breakdown and time estimation)
-  - Voice chat (Whisper transcription + TTS streaming)
-  - Image generation (`gpt-image-1`)
-- **Environment variables required:**
-  - `AI_INTEGRATIONS_OPENAI_API_KEY` — OpenAI API key (AI Integrations)
-  - `AI_INTEGRATIONS_OPENAI_BASE_URL` — custom base URL (proxy)
-- **Model used:** `gpt-5.2` for Goblin Tools chat completions
+2. **Set up the database**
+   Make sure PostgreSQL is running and the `DATABASE_URL` environment variable is set, then push the schema:
+   ```
+   npm run db:push
+   ```
 
-### Database
-- **PostgreSQL** via `pg` driver
-- **Environment variable required:** `DATABASE_URL`
-- Used for: chat conversation/message persistence
+3. **Configure environment variables**
+   The app needs:
+   - `DATABASE_URL` — PostgreSQL connection string
+   - `AI_INTEGRATIONS_OPENAI_API_KEY` — OpenAI API key for AI features
+   - `AI_INTEGRATIONS_OPENAI_BASE_URL` — OpenAI-compatible API base URL
+   - Replit auth variables (automatically set when running on Replit)
 
-### External APIs (no auth required)
-- **Europe PMC REST API** — free open-access ADHD paper search, proxied through the backend (`GET /api/research`). Returns title, authors, year, journal, abstract, and open-access links.
-- **Google Fonts** — Geist and JetBrains Mono loaded via `<link>` in `index.html`
+4. **Start the dev server**
+   ```
+   npm run dev
+   ```
+   This starts both the Express backend and Vite frontend on a single port.
 
-### Key Frontend Libraries
-| Library | Purpose |
-|---|---|
-| `wouter` | Client-side routing |
-| `@tanstack/react-query` | Server state / API calls |
-| `next-themes` | Dark/light theme management |
-| `framer-motion` | Animations |
-| `react-hook-form` + `@hookform/resolvers` | Form handling |
-| `date-fns` | Date formatting |
-| `zod` + `drizzle-zod` | Schema validation |
-| `lucide-react` | Icons |
-| `embla-carousel-react` | Carousel components |
-| Radix UI (full suite) | Accessible headless UI primitives |
-
-# Yay pictures! 
+5. **Build for production**
+   ```
+   npm run build
+   npm start
+   ```
 
 
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/84be8be5-1e74-4869-85e7-77bf54e6e06c" />
+   ## Yay Pictures!
 
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/e1353550-ab40-43a6-b03f-079378d7439a" />
-
-
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/ec2eca15-a0c6-4758-93de-7c8547939ea7" />
-
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/097310fd-072e-468e-89a6-6750d385635e" />
-
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/b31dcc29-744c-4554-ac8e-6f3a13dc9fae" />
-
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/41d0d5f4-7b4d-48d2-a9ee-119e2dea83c4" />
-
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/3ea267ec-59c0-4e6e-bfab-7ab386589eda" />
-
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/3f777026-457e-4608-bae3-e922876f48c0" />
-
-
-<img width="1069" height="896" alt="image" src="https://github.com/user-attachments/assets/67da2474-9cd9-4f95-b49a-f26296012930" />
-
-
-
-
-
-
-
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/e24e18ff-527f-45a1-a67f-04088dbc3b0d" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/d94eb31d-a6d0-429e-bc0b-68920f6c9566" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/c0ab5ca1-d751-42be-8a2d-9b6a0173616d" />
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/ca050eca-b0a8-4ea0-82b9-27cd2ecf35fb" />
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/5d236d89-678c-4384-bfa6-66cbaa58fa9e" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/40d326e4-791b-40a5-b6fc-9df957c1ae76" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/94c010e6-9599-46a5-bf12-3d2328178671" />
+<img width="400" height="315" alt="image" src="https://github.com/user-attachments/assets/d7d3a0fa-da6f-412a-a00a-6396dce5460e" />
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/2b392bb6-abc8-41ef-8ee9-c4512cf73518" />
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/7d8a9be9-b019-40be-8668-73624ac79eda" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/bc09b710-64d7-47c9-bcbf-577ea0fb958f" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/2867b5c5-ae38-4007-8f70-a654bd280c4a" />
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/6b0c1c55-515b-4aa9-b4d6-00b05889f7c9" />
