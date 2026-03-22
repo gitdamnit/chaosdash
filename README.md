@@ -1,3 +1,6 @@
+<img width="475" height="139" alt="image" src="https://github.com/user-attachments/assets/d10214c6-0701-4f15-8d35-991c9ce2d8fd" />
+
+
 # ADHDPenguin
 <img width="240" height="240" alt="adhdpenguin-logo" src="https://github.com/user-attachments/assets/db9006b5-61f1-4351-b728-9e9e29113e13" />
 
@@ -5,7 +8,6 @@
 
 ADHDPenguin is a distraction-free productivity and wellness app designed specifically for adults with ADHD. It helps users manage tasks, routines, projects, and daily planning with minimal friction. The app includes AI-powered "Fun Tools" to break tasks into micro-steps, estimate time, and provide ADHD-friendly support.
 
-<img width="475" height="139" alt="image" src="https://github.com/user-attachments/assets/d10214c6-0701-4f15-8d35-991c9ce2d8fd" />
 
 # ADHD Penguin
 
