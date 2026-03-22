@@ -4,12 +4,13 @@ import {
   AlertOctagon, CheckSquare, Flower2, KanbanSquare,
   Settings as SettingsIcon, Sun, Moon, Wand2, BookOpen,
   Heart, CalendarDays, ListChecks, Target, Smile, Crosshair,
-  Play, Pause, Square, Timer
+  Play, Pause, Square, Timer, LogIn, LogOut, ShieldCheck, Users
 } from 'lucide-react';
 import { useApp } from '@/lib/useAppState';
 import { useTheme } from 'next-themes';
 import { QuickCapture, QuickCaptureFAB } from './QuickCapture';
 import { FocusMode } from './FocusMode';
+import { useAuth } from '@/hooks/use-auth';
 
 const NAV_SECTIONS = [
   {
@@ -23,9 +24,10 @@ const NAV_SECTIONS = [
   {
     label: 'ADHD Tools',
     items: [
-      { href: '/goblin', icon: Wand2, label: 'Fun Tools' },
+      { href: '/fun-tools', icon: Wand2, label: 'Fun Tools' },
+      { href: '/body-double', icon: Users, label: 'Body Doubling' },
       { href: '/mindfulness', icon: Heart, label: 'Calm Corner' },
-      { href: '/research', icon: BookOpen, label: 'Research & News' },
+      { href: '/research', icon: BookOpen, label: 'Research + Reading' },
     ],
   },
   {
@@ -51,6 +53,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [location] = useLocation();
   const { panicMode, setPanicMode } = useApp();
   const { theme, setTheme } = useTheme();
+  const { user, isLoading: authLoading, isAuthenticated, logout } = useAuth();
   const [captureOpen, setCaptureOpen] = useState(false);
   const [focusOpen, setFocusOpen] = useState(false);
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -152,11 +155,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       {/* Sidebar */}
       <aside className="w-full md:w-60 bg-card border-b md:border-b-0 md:border-r border-border flex flex-col z-10 shrink-0">
-        <div className="px-5 pt-5 pb-4 flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xl leading-none block transform translate-y-[-1px]">C</span>
-          </div>
-          <h1 className="font-bold text-xl tracking-tight">Chaos<span className="text-muted-foreground">Dash</span></h1>
+        <div className="px-5 pt-5 pb-4 flex items-center gap-2.5">
+          <img src="/adhdpenguin-logo.png" alt="ADHD Penguin" className="w-9 h-9 object-contain" />
+          <h1 className="font-bold text-lg tracking-tight leading-none">ADHD<span className="text-blue-400">Penguin</span></h1>
         </div>
 
         <nav className="flex-1 px-3 py-2 overflow-y-auto hidden md:block space-y-5">
@@ -191,6 +192,30 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </nav>
 
         <div className="p-3 mt-auto hidden md:block space-y-2 border-t border-border">
+          {/* Admin link */}
+          {user?.isAdmin && (
+            <Link href="/admin" className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-150 font-medium text-sm ${location === '/admin' ? 'bg-primary text-primary-foreground' : 'text-amber-500 hover:bg-amber-500/10'}`}>
+              <ShieldCheck className="w-4 h-4 shrink-0" />
+              Admin Panel
+            </Link>
+          )}
+          {/* Auth section */}
+          {authLoading ? (
+            <div className="h-8 bg-secondary/50 rounded-lg animate-pulse" />
+          ) : isAuthenticated && user ? (
+            <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-secondary/40">
+              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                <span className="text-[10px] font-bold text-primary">{(user.username?.[0] ?? '?').toUpperCase()}</span>
+              </div>
+              <span className="text-xs text-foreground font-medium truncate flex-1" data-testid="text-username">
+                {user.username}
+              </span>
+              <button onClick={() => logout()} className="text-muted-foreground hover:text-destructive transition-colors" title="Sign out" data-testid="button-signout">
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : null}
+
           {sessionActive && (
             <div className="bg-primary/10 border border-primary/20 rounded-lg px-3 py-2 flex items-center gap-2">
               <Timer className="w-3.5 h-3.5 text-primary shrink-0" />
@@ -220,21 +245,27 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 h-screen overflow-y-auto relative">
-        <div className="md:hidden absolute top-3 right-3 flex gap-2 z-20">
-          <button onClick={() => setFocusOpen(true)} className="w-9 h-9 bg-primary/10 text-primary rounded-full flex items-center justify-center border border-primary/20">
-            <Crosshair className="w-4 h-4" />
-          </button>
-          <button onClick={() => setPanicMode(true)} className="w-9 h-9 bg-destructive/10 text-destructive rounded-full flex items-center justify-center border border-destructive/20">
-            <AlertOctagon className="w-4 h-4" />
-          </button>
-          <button onClick={toggleTheme} className="w-9 h-9 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center">
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </button>
+      <main className="flex-1 flex flex-col h-screen">
+        <div className="flex-1 overflow-y-auto relative">
+          <div className="md:hidden absolute top-3 right-3 flex gap-2 z-20">
+            <button onClick={() => setFocusOpen(true)} className="w-9 h-9 bg-primary/10 text-primary rounded-full flex items-center justify-center border border-primary/20">
+              <Crosshair className="w-4 h-4" />
+            </button>
+            <button onClick={() => setPanicMode(true)} className="w-9 h-9 bg-destructive/10 text-destructive rounded-full flex items-center justify-center border border-destructive/20">
+              <AlertOctagon className="w-4 h-4" />
+            </button>
+            <button onClick={toggleTheme} className="w-9 h-9 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center">
+              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+          </div>
+          <div className={`p-4 md:p-8 max-w-6xl mx-auto pb-28 md:pb-8 ${sessionActive ? 'mb-14' : ''}`}>
+            {children}
+          </div>
         </div>
-        <div className={`p-4 md:p-8 max-w-6xl mx-auto pb-28 md:pb-8 ${sessionActive ? 'mb-14' : ''}`}>
-          {children}
-        </div>
+        <footer className="flex flex-col sm:flex-row items-center justify-between gap-1 px-6 py-3 bg-muted border-t-2 border-border text-xs font-medium text-foreground dark:text-white shrink-0">
+          <span>© 2026 ADHDPenguin</span>
+          <span>This project is dedicated to my BFF Kari ❤️</span>
+        </footer>
       </main>
 
       {/* Persistent mini timer bar when session is running and focus mode is closed */}
